@@ -9,7 +9,6 @@ public class Pedido {
 	
 	private int id;
 	private Produto produto;
-
 	private Timestamp dataHoraSolicitacao;
 	private Timestamp dataHoraInicioPreparo;
 	private Timestamp tempoPreparoRestante;

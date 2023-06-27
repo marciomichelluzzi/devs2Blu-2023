@@ -10,7 +10,6 @@ public class Comanda {
 	private Mesa mesa;
 	private Cliente cliente;
 	private List<Pedido> pedidos;
-	private int quantidadeMaxPessoas;
 	private String codigo;
 	private String observacoes;
 	private StatusComanda statusComanda;
@@ -19,14 +18,13 @@ public class Comanda {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Comanda(int id, Mesa mesa, Cliente cliente, List<Pedido> pedidos, int quantidadeMaxPessoas, String codigo,
+	public Comanda(int id, Mesa mesa, Cliente cliente, List<Pedido> pedidos, String codigo,
 			String observacoes, StatusComanda statusComanda) {
 		super();
 		this.id = id;
 		this.mesa = mesa;
 		this.cliente = cliente;
 		this.pedidos = pedidos;
-		this.quantidadeMaxPessoas = quantidadeMaxPessoas;
 		this.codigo = codigo;
 		this.observacoes = observacoes;
 		this.statusComanda = statusComanda;
@@ -62,14 +60,6 @@ public class Comanda {
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
-	}
-
-	public int getQuantidadeMaxPessoas() {
-		return quantidadeMaxPessoas;
-	}
-
-	public void setQuantidadeMaxPessoas(int quantidadeMaxPessoas) {
-		this.quantidadeMaxPessoas = quantidadeMaxPessoas;
 	}
 
 	public String getCodigo() {
