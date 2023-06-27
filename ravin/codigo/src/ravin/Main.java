@@ -1,5 +1,6 @@
 package ravin;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -108,6 +109,11 @@ public class Main {
 	
 	public static Pedido cadastrarPedido() {
 		Pedido pedido = new Pedido();
+		
+		pedido.setDataHoraSolicitacao(new Timestamp(new Date().getTime()));
+		pedido.setObservacao(JOptionPane.showInputDialog("Observações:"));
+		pedido.setQuantidade(Integer.parseInt(JOptionPane.showInputDialog("Digite a quantidade de items que você quer para esse pedido")));
+		
 		return pedido;
 	}
 
