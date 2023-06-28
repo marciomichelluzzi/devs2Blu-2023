@@ -3,10 +3,13 @@ package ravin;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import javax.swing.JOptionPane;
 
+import dao.FuncionarioDAO;
+import ravin.controller.FuncionarioController;
 import ravin.enumeradores.Cargo;
 import ravin.enumeradores.Escolaridade;
 import ravin.enumeradores.EstadoCivil;
@@ -21,79 +24,25 @@ import ravin.modelos.Mesa;
 import ravin.modelos.Pedido;
 import ravin.modelos.Pessoa;
 import ravin.modelos.Produto;
-import ravin.utilidade.DateUtils;
+import ravin.utilidade.UtilitarioData;
 
 public class Main {
-	
-	/*
-1 - Funcionario
-	* Cadastrar
-	* Alterar
-	* Excluir
-	* Consultar
-	* Listar Todas
-	* Consultar Garçons Disponíveis
-2 - Cliente
-	* Cadastrar
-	* Alterar
-	* Excluir
-	* Consultar
-	* Listar Todas
-3 - Produto
-	* Cadastrar
-	* Alterar
-	* Excluir
-	* Consultar
-	* Listar Todas
-4 - Cardapio
-	* Cadastrar
-	* Alterar
-	* Excluir
-	* Consultar
-	* Listar Todas
-5 - Mesa
-	* Cadastrar
-	* Alterar
-	* Excluir
-	* Consultar
-	* Listar Todas
-	* Consultar Mesas Disponíveis
-	* Reservar Mesa
-	* Listar Mesas Por Status
-6 - Pedido
-	* Cadastrar
-	* Alterar
-	* Excluir
-	* Consultar
-	* Listar Todas
-	* Realizar pedido
-	* Consultar Status do pedido
-	* Listar Comandas Por Status
-	* Fechar Comanda
-	* Cancelar Pedido
-	*/
-	
+
+	private static FuncionarioController funcionarioController = new FuncionarioController();
+	private static AtomicInteger idCounter = new AtomicInteger();
 
 	public static void main(String[] args) {
-
-		// Pessoa pessoa = cadastrarPessoa();
-		// Funcionario funcionario = cadastrarFuncionario();
-		// Cliente cliente = cadastrarCliente();
-		// Produto produto = cadastrarProduto();
-		// Pedido pedido = cadastrarPedido();
-		// Mesa mesa = cadastrarMesa();
-		// Comanda comanda = cadastrarComanda();
 
 		boolean executando = true;
 		int opcaoSelecionada = 0;
 
-		for (; executando;) {
+		while (executando) {
 			opcaoSelecionada = Integer.parseInt(JOptionPane.showInputDialog(montarMenuPrincipal()));
 
 			switch (opcaoSelecionada) {
 			case 1:
 				int opcao = Integer.parseInt(JOptionPane.showInputDialog(montarSubMenuFuncionarios()));
-				operacaoFuncionario(opcao);
+				operacaoFuncionario(opcao, funcionarioController);
 				break;
 			case 2:
 				// Chamar menu cliente
@@ -121,36 +70,32 @@ public class Main {
 
 	}
 
-	private static void operacaoFuncionario(int opcao) {
-
-//		Cadastrar \n");
-//		builder.append("2 -  Alterar \n");
-//		builder.append("3 -  Excluir \n");
-//		builder.append("4 -  Consultar \n");
-//		builder.append("5 -  Listar todos \n");
-
+	private static void operacaoFuncionario(int opcao, FuncionarioController controller) {
+		Funcionario funcionario = null;
+		List<Funcionario> funcionarios = null;
+		int id;
 		switch (opcao) {
 		case 1:
-			cadastrarFuncionario();
+			funcionario = mostrarMenuCadastrarFuncionario();
 			break;
 		case 2:
-			// Alterar Funcionario
+			funcionario = mostrarMenuAlterarFuncionario();
 			break;
 
 		case 3:
-			// Excluir Funcionario;
+			id = mostrarMenuExcluirFuncionario();
 			break;
 
 		case 4:
-			// Consultar Funcionario;
+			id = mostrarMenuConsultarFuncionario();
 			break;
 
 		case 5:
-			// Listar todos;
+			listarFuncionarios(funcionarios);
 			break;
 
 		case 6:
-			// Consultar Garçons Disponíveis;
+			listarGarçonsDisponiveis(funcionarios);
 			break;
 
 		default:
@@ -158,13 +103,63 @@ public class Main {
 		}
 	}
 
+	private static void listarGarçonsDisponiveis(List<Funcionario> funcionarios) {
+		StringBuilder builder = new StringBuilder();
+
+		for (Funcionario funcionario : funcionarios) {
+			builder.append(funcionario);
+			builder.append("\n");
+		}
+
+		builder.append(" ==================== Garçons Disponíveis ==================== ");
+		builder.append("\n");
+		JOptionPane.showMessageDialog(null, builder.toString());
+	}
+
+	private static void listarFuncionarios(List<Funcionario> funcionarios) {
+		StringBuilder builder = new StringBuilder();
+
+		for (Funcionario funcionario : funcionarios) {
+			builder.append(funcionario);
+			builder.append("\n");
+		}
+		builder.append(" ==================== Funcionários ==================== ");
+		builder.append("\n");
+		JOptionPane.showMessageDialog(null, builder.toString());
+	}
+
+	private static int mostrarMenuConsultarFuncionario() {
+		// TODO Auto-generated method stub
+		return Integer.parseInt(JOptionPane.showInputDialog("Digite o id do funcionário que você deseja consultar"));
+	}
+
+	private static int mostrarMenuExcluirFuncionario() {
+		return Integer.parseInt(JOptionPane.showInputDialog("Digite o id do funcionário que você deseja excluir"));
+	}
+
+	private static Funcionario mostrarMenuAlterarFuncionario() {
+		Funcionario funcionario = new Funcionario();
+		funcionario.setId(Integer.parseInt(JOptionPane.showInputDialog("Digite o id do funcionario que você deseja alterar")));
+		funcionario.setRg(JOptionPane.showInputDialog("Digite o RG do funcionário:"));
+		funcionario.setEstadoCivil(EstadoCivil.values()[Integer.parseInt(JOptionPane.showInputDialog(
+				"Digite o estado civíl do funcionario: \n [0 - Solteiro \n 1 - Casado \n 2 - Viúvo \n 3 - Divorciado \n 4 - Separado]"))]);
+		funcionario.setCargo(Cargo.values()[Integer.parseInt(JOptionPane.showInputDialog(
+				"Digite o cargo do funcionário: \n 0 - Faxineiro \n 1 - Garçom \n 2 - Cozinheiro \n 3 - Gerente"))]);
+		funcionario.setEscolaridade(Escolaridade.values()[Integer.parseInt(JOptionPane.showInputDialog(
+				"Digite a escolaridade do funcionario: \n 0 - Fundamental \n 1 - Médio \n 2 - Superior "))]);
+		funcionario.setPis(Integer.parseInt(JOptionPane.showInputDialog("Digite o PIS do funcionário")));
+		funcionario.setDataAdmissao(new Date());
+		
+		return funcionario;
+	}
+
 	public static Pessoa cadastrarPessoa() {
-		int id = Integer.parseInt(JOptionPane.showInputDialog("Digite um id pessoa"));
+		int id = idCounter.incrementAndGet();
 		String nome = JOptionPane.showInputDialog("Digite o nome da pessoa");
 		String endereco = JOptionPane.showInputDialog("Digite o endereço da pessoa");
 		String telefone = JOptionPane.showInputDialog("Digite o telefone da pessoa");
 		String cpf = JOptionPane.showInputDialog("Digite o CPF da pessoa");
-		Date dataNascimento = DateUtils.stringToDate(
+		Date dataNascimento = UtilitarioData.stringParaDate(
 				JOptionPane.showInputDialog("Qual a data de nascimento da pessoa? \n Formato: dd/MM/yyyy"));
 		String observacao = JOptionPane.showInputDialog("Digite alguma possível observação");
 		boolean ativo = Boolean
@@ -173,7 +168,7 @@ public class Main {
 		return new Pessoa(id, nome, endereco, telefone, cpf, dataNascimento, observacao, ativo);
 	}
 
-	public static Funcionario cadastrarFuncionario() {
+	public static Funcionario mostrarMenuCadastrarFuncionario() {
 		Pessoa pessoa = cadastrarPessoa();
 
 		Funcionario funcionario = new Funcionario();
@@ -218,6 +213,7 @@ public class Main {
 
 	public static Produto cadastrarProduto() {
 
+		int id = idCounter.incrementAndGet();
 		String nome = JOptionPane.showInputDialog("Digite o nome do produto:");
 		String descricao = JOptionPane.showInputDialog("Digite a descrição do produto:");
 		String codigo = JOptionPane.showInputDialog("Digite o código do produto");
@@ -230,7 +226,7 @@ public class Main {
 		boolean ativo = Boolean
 				.parseBoolean(JOptionPane.showInputDialog("O produto está ativo? \n 0 - Não \n 1 - Sim"));
 
-		return new Produto(0, nome, descricao, codigo, precoCusto, precoVenda, tempoPreparo, observacoes, tipoProduto,
+		return new Produto(id, nome, descricao, codigo, precoCusto, precoVenda, tempoPreparo, observacoes, tipoProduto,
 				ativo);
 
 	}
@@ -238,6 +234,7 @@ public class Main {
 	public static Pedido cadastrarPedido() {
 		Pedido pedido = new Pedido();
 
+		pedido.setId(idCounter.incrementAndGet());
 		pedido.setDataHoraSolicitacao(new Timestamp(new Date().getTime()));
 		pedido.setObservacao(JOptionPane.showInputDialog("Observações:"));
 		pedido.setQuantidade(Integer
@@ -250,6 +247,7 @@ public class Main {
 	public static Mesa cadastrarMesa() {
 		Mesa mesa = new Mesa();
 
+		mesa.setId(idCounter.incrementAndGet());
 		mesa.setCodigo(JOptionPane.showInputDialog("Digite o código da mesa:"));
 		mesa.setNome(JOptionPane.showInputDialog("Digite o nome da mesa:"));
 		mesa.setNumero(Integer.parseInt(JOptionPane.showInputDialog("Digite o número da mesa:")));
@@ -262,6 +260,7 @@ public class Main {
 	public static Comanda cadastrarComanda() {
 		Comanda comanda = new Comanda();
 
+		comanda.setId(idCounter.incrementAndGet());
 		comanda.setCodigo(JOptionPane.showInputDialog("Digite o código da comanda:"));
 		comanda.setObservacoes(JOptionPane.showInputDialog("Digite as observações sobre a comanda:"));
 		comanda.setStatus(StatusComanda.EM_ABERTO);

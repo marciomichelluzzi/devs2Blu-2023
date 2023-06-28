@@ -99,4 +99,13 @@ public class Funcionario extends Pessoa {
 	public void setPis(int pis) {
 		this.pis = pis;
 	}
+
+	@Override
+	public String toString() {
+		return "Funcionario [rg=" + rg + ", estadoCivil=" + estadoCivil + ", escolaridade=" + escolaridade + ", cargo="
+				+ cargo + ", pis=" + pis + ", dataAdmissao=" + dataAdmissao + ", dataDemissao=" + dataDemissao
+				+ ", disponibilidade=" + disponibilidade + "]";
+	}
+	
+	
 }
