@@ -24,6 +24,55 @@ import ravin.modelos.Produto;
 import ravin.utilidade.DateUtils;
 
 public class Main {
+	
+	/*
+1 - Funcionario
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+	* Consultar Garçons Disponíveis
+2 - Cliente
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+3 - Produto
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+4 - Cardapio
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+5 - Mesa
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+	* Consultar Mesas Disponíveis
+	* Reservar Mesa
+	* Listar Mesas Por Status
+6 - Pedido
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+	* Realizar pedido
+	* Consultar Status do pedido
+	* Listar Comandas Por Status
+	* Fechar Comanda
+	* Cancelar Pedido
+	*/
+	
 
 	public static void main(String[] args) {
 
@@ -38,44 +87,75 @@ public class Main {
 		boolean executando = true;
 		int opcaoSelecionada = 0;
 
-		for (;executando;) {
+		for (; executando;) {
 			opcaoSelecionada = Integer.parseInt(JOptionPane.showInputDialog(montarMenuPrincipal()));
 
 			switch (opcaoSelecionada) {
 			case 1:
-				// Chamar menu funcionario
+				int opcao = Integer.parseInt(JOptionPane.showInputDialog(montarSubMenuFuncionarios()));
+				operacaoFuncionario(opcao);
 				break;
-
 			case 2:
 				// Chamar menu cliente
 				break;
-
 			case 3:
 				// Chamar menu produto
 				break;
-
 			case 4:
 				// Chamar menu cardapio
 				break;
-
 			case 5:
 				// Chamar menu mesa
 				break;
-
 			case 6:
 				// Chamar menu pedido
 				break;
-
 			case 7:
 				executando = false;
 				break;
-
 			default:
 				JOptionPane.showMessageDialog(null, "Escolha uma opção válida");
 				break;
 			}
 		}
 
+	}
+
+	private static void operacaoFuncionario(int opcao) {
+
+//		Cadastrar \n");
+//		builder.append("2 -  Alterar \n");
+//		builder.append("3 -  Excluir \n");
+//		builder.append("4 -  Consultar \n");
+//		builder.append("5 -  Listar todos \n");
+
+		switch (opcao) {
+		case 1:
+			cadastrarFuncionario();
+			break;
+		case 2:
+			// Alterar Funcionario
+			break;
+
+		case 3:
+			// Excluir Funcionario;
+			break;
+
+		case 4:
+			// Consultar Funcionario;
+			break;
+
+		case 5:
+			// Listar todos;
+			break;
+
+		case 6:
+			// Consultar Garçons Disponíveis;
+			break;
+
+		default:
+
+		}
 	}
 
 	public static Pessoa cadastrarPessoa() {
@@ -194,13 +274,39 @@ public class Main {
 		StringBuilder builder = new StringBuilder();
 		builder.append(" ==================== RAVIN ==================== ");
 		builder.append("\n");
-		builder.append("1 - Funcionario \n");
-		builder.append("2 - Cliente \n");
-		builder.append("3 - Produto \n");
-		builder.append("4 - Cardapio \n");
-		builder.append("5 - Mesa \n");
-		builder.append("6 - Pedido \n");
+		builder.append("1 - Funcionarios \n");
+		builder.append("2 - Clientes \n");
+		builder.append("3 - Produtos \n");
+		builder.append("4 - Cardapios \n");
+		builder.append("5 - Mesas \n");
+		builder.append("6 - Pedidos \n");
 		builder.append("7 - Sair");
+
+		return builder.toString();
+	}
+
+	public static String montarSubMenuGeral(String modulo) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(" ==================== Gestão de ");
+		builder.append(modulo);
+		builder.append(" ==================== ");
+		builder.append("\n");
+		builder.append("1 -  Cadastrar \n");
+		builder.append("2 -  Alterar \n");
+		builder.append("3 -  Excluir \n");
+		builder.append("4 -  Consultar \n");
+		builder.append("5 -  Listar todos \n");
+
+		return builder.toString();
+	}
+
+	public static String montarSubMenuFuncionarios() {
+		String subMenuGeral = montarSubMenuGeral("Funcionarios");
+
+		StringBuilder builder = new StringBuilder();
+		builder.append(subMenuGeral);
+		builder.append("6 - Consultar Garçons Disponíveis \n");
+		builder.append("7 - Voltar");
 
 		return builder.toString();
 	}
