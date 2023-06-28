@@ -1,24 +1,24 @@
-package ravin.controller;
+package ravin.controladores;
 
-import dao.FuncionarioDAO;
 import ravin.modelos.Funcionario;
+import repositorios.FuncionarioRepository;
 
 public class FuncionarioController {
 
-	private FuncionarioDAO dao;
+	private FuncionarioRepository repository;
 
 	public FuncionarioController() {
-		dao = new FuncionarioDAO();
+		repository = new FuncionarioRepository();
 	}
 
 	public void cadastrar(Funcionario entidade) {
 		// REGRAS DE NEGÓCIO
-		dao.salvar(entidade);
+		repository.salvar(entidade);
 	}
 
 	public void alterar(Funcionario entidade) {
 		// REGRAS DE NEGÓCIO
-		dao.salvar(entidade);
+		repository.salvar(entidade);
 	}
 
 }

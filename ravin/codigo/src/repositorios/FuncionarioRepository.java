@@ -1,15 +1,15 @@
-package dao;
+package repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ravin.modelos.Funcionario;
 
-public class FuncionarioDAO {
+public class FuncionarioRepository {
 
 	private List<Funcionario> funcionarios;
 
-	public FuncionarioDAO() {
+	public FuncionarioRepository() {
 		funcionarios = new ArrayList<Funcionario>();
 	}
 
