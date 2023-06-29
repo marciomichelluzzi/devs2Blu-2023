@@ -30,6 +30,8 @@ public class Main {
 	private static AtomicInteger idCounter = new AtomicInteger();
 
 	public static void main(String[] args) {
+		
+		System.gc();
 
 		boolean executando = true;
 		int opcaoSelecionada = 0;
@@ -71,29 +73,42 @@ public class Main {
 	private static void operacaoFuncionario(int opcao, FuncionarioController controller) {
 		Funcionario funcionario = null;
 		List<Funcionario> funcionarios = null;
+
 		int id;
 		switch (opcao) {
-		case 1:
+		case 1: //cadastrar Funcionario
 			funcionario = mostrarMenuCadastrarFuncionario();
+
+			try {
+				controller.cadastrar(funcionario);
+			} catch (Exception e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
+			
 			break;
-		case 2:
+		case 2: //alterar
 			funcionario = mostrarMenuAlterarFuncionario();
 			break;
 
-		case 3:
+		case 3: //excluir
 			id = mostrarMenuExcluirFuncionario();
+			controller.excluir(id);
 			break;
 
-		case 4:
+		case 4: //consultar
 			id = mostrarMenuConsultarFuncionario();
+			Funcionario funcionarioBuscado = controller.consultar(id);
+			JOptionPane.showMessageDialog(null, funcionarioBuscado);
 			break;
 
-		case 5:
+		case 5: 
+			funcionarios = controller.listarTodos();
 			listarFuncionarios(funcionarios);
 			break;
 
 		case 6:
-			listarGarçonsDisponiveis(funcionarios);
+			funcionarios = controller.listarDisponiveis();
+			listarGarconsDisponiveis(funcionarios);
 			break;
 
 		default:
@@ -101,28 +116,32 @@ public class Main {
 		}
 	}
 
-	private static void listarGarçonsDisponiveis(List<Funcionario> funcionarios) {
+	private static void listarGarconsDisponiveis(List<Funcionario> funcionarios) {
 		StringBuilder builder = new StringBuilder();
 
+		builder.append(" ==================== Garçons Disponíveis ==================== ");
+		builder.append("\n");
+		
 		for (Funcionario funcionario : funcionarios) {
 			builder.append(funcionario);
 			builder.append("\n");
 		}
 
-		builder.append(" ==================== Garçons Disponíveis ==================== ");
-		builder.append("\n");
+
 		JOptionPane.showMessageDialog(null, builder.toString());
 	}
 
 	private static void listarFuncionarios(List<Funcionario> funcionarios) {
 		StringBuilder builder = new StringBuilder();
 
+		builder.append(" ==================== Funcionários ==================== ");
+		builder.append("\n");
+		
 		for (Funcionario funcionario : funcionarios) {
 			builder.append(funcionario);
 			builder.append("\n");
 		}
-		builder.append(" ==================== Funcionários ==================== ");
-		builder.append("\n");
+
 		JOptionPane.showMessageDialog(null, builder.toString());
 	}
 

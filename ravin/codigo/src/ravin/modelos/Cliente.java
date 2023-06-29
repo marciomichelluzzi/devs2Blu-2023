@@ -29,5 +29,14 @@ public class Cliente extends Pessoa {
 
 	public void setVip(boolean vip) {
 		this.vip = vip;
-	}	
+	}
+
+	@Override
+	public String toString() {
+		return "Cliente [alergias=" + alergias + ", vip=" + vip + " id " + super.getId() + "]";
+	}
+
+	
+	
+	
 }

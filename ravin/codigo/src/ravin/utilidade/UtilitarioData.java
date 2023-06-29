@@ -20,7 +20,7 @@ public class UtilitarioData {
 		return parsedDate;
 	}
 
-	public int getIdade(Date dataNascimento) {
+	public static int getIdade(Date dataNascimento) {
 		GregorianCalendar hoje = new GregorianCalendar();
 		GregorianCalendar nascimento = new GregorianCalendar();
 		if (dataNascimento != null) {

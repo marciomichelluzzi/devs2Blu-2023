@@ -14,11 +14,14 @@ public class FuncionarioRepository {
 	}
 
 	public void salvar(Funcionario entidade) {
-		for (Funcionario funcionario : funcionarios) {
-			if (funcionario.getId() == entidade.getId()) {
-				funcionario = entidade;
-			}
+		Funcionario funcionario = buscarPorId(entidade.getId());
+		
+		if(funcionario == null) {
+			funcionarios.add(entidade);
+		} else {
+			funcionario = entidade;
 		}
+		
 	}
 
 	public List<Funcionario> listarTodos() {
@@ -39,20 +42,16 @@ public class FuncionarioRepository {
 		return funcionarioBuscado;
 	}
 
-	public void deletarPeloId(int id) {
-		Funcionario funcionarioBuscado = null;
-
-		for (Funcionario funcionario : funcionarios) {
-			if (funcionario.getId() == id) {
-				funcionarioBuscado = funcionario;
-			}
-		}
-
-		funcionarios.remove(funcionarioBuscado);
+	public void deletarPeloId(Funcionario funcionario) {
+		funcionarios.remove(funcionario);
 	}
 
 	public int contar() {
 		return funcionarios.size();
+	}
+	
+	public Funcionario buscarPorNome(String nome) {
+		return null;
 	}
 
 }
