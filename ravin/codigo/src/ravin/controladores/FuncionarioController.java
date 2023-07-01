@@ -18,7 +18,7 @@ public class FuncionarioController {
 		repository = new FuncionarioRepository();
 	}
 
-	public void cadastrar(Funcionario entidade) throws Exception {
+	public void salvar(Funcionario entidade) throws Exception {
 		if (UtilitarioData.getIdade(entidade.getDataNascimento()) < 18) {
 			throw new Exception("Não pode salvar o funcionario, pois ele é menor de idade");
 		}

@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static ravin.utilidade.ConstantesTextos.*;
+
 import javax.swing.JOptionPane;
 
 import ravin.controladores.FuncionarioController;
@@ -24,6 +26,61 @@ import ravin.modelos.Pessoa;
 import ravin.modelos.Produto;
 import ravin.utilidade.UtilitarioData;
 
+
+/**
+ * 
+ * @author mmichelluzzi
+ * 
+ * Funcionalidades que devem ser contempladas no desenvolvimento do projeto
+ * 
+ * 1 - Funcionario
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+	* Consultar Garçons Disponíveis
+2 - Cliente
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+3 - Produto
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+4 - Cardapio
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+5 - Mesa
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+	* Consultar Mesas Disponíveis
+	* Reservar Mesa
+	* Listar Mesas Por Status
+6 - Pedido
+	* Cadastrar
+	* Alterar
+	* Excluir
+	* Consultar
+	* Listar Todas
+	* Realizar pedido
+	* Consultar Status do pedido
+	* Listar Comandas Por Status
+	* Fechar Comanda
+	* Cancelar Pedido
+ *
+ */
+
 public class Main {
 
 	private static FuncionarioController funcionarioController = new FuncionarioController();
@@ -31,8 +88,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		System.gc();
-
 		boolean executando = true;
 		int opcaoSelecionada = 0;
 
@@ -70,44 +125,54 @@ public class Main {
 
 	}
 
-	private static void operacaoFuncionario(int opcao, FuncionarioController controller) {
+	private static void operacaoFuncionario(int opcao, FuncionarioController funcionarioController) {
 		Funcionario funcionario = null;
 		List<Funcionario> funcionarios = null;
 
 		int id;
 		switch (opcao) {
-		case 1: //cadastrar Funcionario
+		case 1: // cadastrar Funcionario
 			funcionario = mostrarMenuCadastrarFuncionario();
 
-			try {
-				controller.cadastrar(funcionario);
+			try {// inserir
+				funcionarioController.salvar(funcionario);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 			}
 			
 			break;
-		case 2: //alterar
-			funcionario = mostrarMenuAlterarFuncionario();
+		case 2: // alterar
+			
+			funcionarios = funcionarioController.listarTodos();
+			int idFuncionarioAlterar = mostrarMenuLerIdFuncionarioAlterar(funcionarios);
+			Funcionario funcionarioAlterar = funcionarioController.consultar(idFuncionarioAlterar);
+			mostrarMenuAlterarFuncionario(funcionarioAlterar);
+			try {
+				funcionarioController.salvar(funcionarioAlterar);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, e.getMessage());
+			}
 			break;
 
 		case 3: //excluir
 			id = mostrarMenuExcluirFuncionario();
-			controller.excluir(id);
+			funcionarioController.excluir(id);
 			break;
 
 		case 4: //consultar
 			id = mostrarMenuConsultarFuncionario();
-			Funcionario funcionarioBuscado = controller.consultar(id);
+			Funcionario funcionarioBuscado = funcionarioController.consultar(id);
 			JOptionPane.showMessageDialog(null, funcionarioBuscado);
 			break;
 
 		case 5: 
-			funcionarios = controller.listarTodos();
+			funcionarios = funcionarioController.listarTodos();
 			listarFuncionarios(funcionarios);
 			break;
 
 		case 6:
-			funcionarios = controller.listarDisponiveis();
+			funcionarios = funcionarioController.listarGarconsDisponiveis();
 			listarGarconsDisponiveis(funcionarios);
 			break;
 
@@ -116,15 +181,34 @@ public class Main {
 		}
 	}
 
+	private static int mostrarMenuLerIdFuncionarioAlterar(List<Funcionario> funcionarios) {
+
+		var builder = new StringBuilder();
+
+		builder.append(" ==================== Lista de funcionários ==================== ");
+		builder.append(QUEBRA_LINHA);
+		
+		for (Funcionario funcionario : funcionarios) {
+			builder.append(funcionario.getId());
+			builder.append(" - ");
+			builder.append(funcionario.getNome());
+			builder.append(QUEBRA_LINHA);
+		}
+		
+		builder.append("Digite o id do funcionário que você deseja alterar");
+		
+		return Integer.parseInt(JOptionPane.showInputDialog(builder.toString()));
+	}
+
 	private static void listarGarconsDisponiveis(List<Funcionario> funcionarios) {
 		StringBuilder builder = new StringBuilder();
 
 		builder.append(" ==================== Garçons Disponíveis ==================== ");
-		builder.append("\n");
+		builder.append(QUEBRA_LINHA);
 		
 		for (Funcionario funcionario : funcionarios) {
 			builder.append(funcionario);
-			builder.append("\n");
+			builder.append(QUEBRA_LINHA);
 		}
 
 
@@ -134,12 +218,12 @@ public class Main {
 	private static void listarFuncionarios(List<Funcionario> funcionarios) {
 		StringBuilder builder = new StringBuilder();
 
-		builder.append(" ==================== Funcionários ==================== ");
-		builder.append("\n");
+		builder.append(CABECALHO_LISTAR_FUNCIONARIOS);
+		builder.append(QUEBRA_LINHA);
 		
 		for (Funcionario funcionario : funcionarios) {
 			builder.append(funcionario);
-			builder.append("\n");
+			builder.append(QUEBRA_LINHA);
 		}
 
 		JOptionPane.showMessageDialog(null, builder.toString());
@@ -154,20 +238,17 @@ public class Main {
 		return Integer.parseInt(JOptionPane.showInputDialog("Digite o id do funcionário que você deseja excluir"));
 	}
 
-	private static Funcionario mostrarMenuAlterarFuncionario() {
-		Funcionario funcionario = new Funcionario();
-		funcionario.setId(Integer.parseInt(JOptionPane.showInputDialog("Digite o id do funcionario que você deseja alterar")));
-		funcionario.setRg(JOptionPane.showInputDialog("Digite o RG do funcionário:"));
-		funcionario.setEstadoCivil(EstadoCivil.values()[Integer.parseInt(JOptionPane.showInputDialog(
-				"Digite o estado civíl do funcionario: \n [0 - Solteiro \n 1 - Casado \n 2 - Viúvo \n 3 - Divorciado \n 4 - Separado]"))]);
-		funcionario.setCargo(Cargo.values()[Integer.parseInt(JOptionPane.showInputDialog(
-				"Digite o cargo do funcionário: \n 0 - Faxineiro \n 1 - Garçom \n 2 - Cozinheiro \n 3 - Gerente"))]);
-		funcionario.setEscolaridade(Escolaridade.values()[Integer.parseInt(JOptionPane.showInputDialog(
-				"Digite a escolaridade do funcionario: \n 0 - Fundamental \n 1 - Médio \n 2 - Superior "))]);
-		funcionario.setPis(Integer.parseInt(JOptionPane.showInputDialog("Digite o PIS do funcionário")));
-		funcionario.setDataAdmissao(new Date());
+	private static Funcionario mostrarMenuAlterarFuncionario(Funcionario funcionarioAlterar) {
+		funcionarioAlterar.setRg(JOptionPane.showInputDialog("Digite o RG do funcionário:", funcionarioAlterar.getRg()));
+		funcionarioAlterar.setEstadoCivil(EstadoCivil.values()[Integer.parseInt(JOptionPane.showInputDialog(
+				ALTERAR_FUNCIONARIO_ESTADO_CIVIL, funcionarioAlterar.getEstadoCivil().ordinal()))]);
+		funcionarioAlterar.setCargo(Cargo.values()[Integer.parseInt(JOptionPane.showInputDialog(
+				"Digite o cargo do funcionário: \n 0 - Faxineiro \n 1 - Garçom \n 2 - Cozinheiro \n 3 - Gerente", funcionarioAlterar.getCargo().ordinal()))]);
+		funcionarioAlterar.setEscolaridade(Escolaridade.values()[Integer.parseInt(JOptionPane.showInputDialog(
+				"Digite a escolaridade do funcionario: \n 0 - Fundamental \n 1 - Médio \n 2 - Superior ", funcionarioAlterar.getEscolaridade().ordinal()))]);
+		funcionarioAlterar.setPis(Integer.parseInt(JOptionPane.showInputDialog("Digite o PIS do funcionário", funcionarioAlterar.getPis())));
 		
-		return funcionario;
+		return funcionarioAlterar;
 	}
 
 	public static Pessoa cadastrarPessoa() {
@@ -189,6 +270,7 @@ public class Main {
 		Pessoa pessoa = cadastrarPessoa();
 
 		Funcionario funcionario = new Funcionario();
+		funcionario.setNome(JOptionPane.showInputDialog("Digite o nome do funcionário:"));
 		funcionario.setRg(JOptionPane.showInputDialog("Digite o RG do funcionário:"));
 		funcionario.setEstadoCivil(EstadoCivil.values()[Integer.parseInt(JOptionPane.showInputDialog(
 				"Digite o estado civíl do funcionario: \n [0 - Solteiro \n 1 - Casado \n 2 - Viúvo \n 3 - Divorciado \n 4 - Separado]"))]);
@@ -289,7 +371,7 @@ public class Main {
 
 		StringBuilder builder = new StringBuilder();
 		builder.append(" ==================== RAVIN ==================== ");
-		builder.append("\n");
+		builder.append(QUEBRA_LINHA);
 		builder.append("1 - Funcionarios \n");
 		builder.append("2 - Clientes \n");
 		builder.append("3 - Produtos \n");
@@ -306,7 +388,7 @@ public class Main {
 		builder.append(" ==================== Gestão de ");
 		builder.append(modulo);
 		builder.append(" ==================== ");
-		builder.append("\n");
+		builder.append(QUEBRA_LINHA);
 		builder.append("1 -  Cadastrar \n");
 		builder.append("2 -  Alterar \n");
 		builder.append("3 -  Excluir \n");
