@@ -23,3 +23,16 @@
 hs_err_pid*
 replay_pid*
 /.metadata/
+ravin/.classpath
+ravin/.project
+ravin/.settings/org.eclipse.core.resources.prefs
+ravin/.settings/org.eclipse.jdt.core.prefs
+ravin/.settings/org.eclipse.m2e.core.prefs
+ravin/codigo/.classpath
+ravin/codigo/.project
+ravin/codigo/.settings/org.eclipse.core.resources.prefs
+ravin/codigo/.settings/org.eclipse.jdt.core.prefs
+ravin/codigo/.classpath
+ravin/codigo/.project
+ravin/codigo/.settings/org.eclipse.core.resources.prefs
+ravin/codigo/.settings/org.eclipse.jdt.core.prefs
