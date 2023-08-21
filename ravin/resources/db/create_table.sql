@@ -81,6 +81,21 @@ CREATE TABLE IF NOT EXISTS CommandaOrder (
     orderId INTEGER REFERENCES "Order"(id)
 );
 
+
+CREATE TABLE IF NOT EXISTS Menu (
+	id SERIAL PRIMARY KEY,
+    code VARCHAR(20) UNIQUE,
+    name VARCHAR(255),
+);
+
+CREATE TABLE IF NOT EXISTS MenuProduct (
+	id SERIAL PRIMARY KEY,
+    code VARCHAR(20) UNIQUE,
+    name VARCHAR(255),
+    productId INTEGER REFERENCES Product(id),
+);
+
+
 SELECT setval('ravin."Table_id_seq"', 1, false);
 SELECT setval('ravin."Order_id_seq"', 1, false);
 SELECT setval('ravin."person_id_seq"', 1, false);
@@ -89,3 +104,5 @@ SELECT setval('ravin."customer_id_seq"', 1, false);
 SELECT setval('ravin."commanda_id_seq"', 1, false);
 SELECT setval('ravin."product_id_seq"', 1, false);
 SELECT setval('ravin."commandaorder_id_seq"', 1, false);
+SELECT setval('ravin."menu_id_seq"', 1, false);
+SELECT setval('ravin."menuproduct_id_seq"', 1, false);

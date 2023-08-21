@@ -1,0 +1,23 @@
+db.createView("ProdutosPorTipoFiltrados", "menus",
+[
+  {
+    $unwind: "$menus"
+  },
+  {
+    $unwind: "$menus.products"
+  },
+  {
+    $match: {
+      "menus.products.productType": "DRINK" // Substitua "DRINK" pelo tipo desejado
+    }
+  },
+  {
+    $group: {
+      _id: "$menus.products.productType",
+      produtos: {
+        $push: "$menus.products"
+      }
+    }
+  }
+]
+)

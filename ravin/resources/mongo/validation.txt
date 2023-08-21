@@ -1,0 +1,49 @@
+db.createCollection("menus", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         required: ["code", "name", "description", "products"],
+         properties: {
+            code: {
+               bsonType: "string"
+            },
+            name: {
+               bsonType: "string"
+            },
+            description: {
+               bsonType: "string"
+            },
+            products: {
+               bsonType: "array",
+               items: {
+                  bsonType: "object",
+                  required: ["code", "name", "price", "productType", "hasActive"],
+                  properties: {
+                     code: {
+                        bsonType: "string"
+                     },
+                     name: {
+                        bsonType: "string"
+                     },
+                     price: {
+                        bsonType: "number"
+                     },
+                     preparationTime: {
+                        bsonType: "string"
+                     },
+                     productType: {
+                        enum: ["DRINK", "FOOD", "DESSERT", "SIDE"]
+                     },
+                     comments: {
+                        bsonType: "string"
+                     },
+                     hasActive: {
+                        bsonType: "bool"
+                     }
+                  }
+               }
+            }
+         }
+      }
+   }
+})

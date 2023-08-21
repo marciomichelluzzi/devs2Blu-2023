@@ -1,0 +1,23 @@
+db.createView("Bebidas", "menus",
+[
+  {
+    $unwind: "$menus"
+  },
+  {
+    $unwind: "$menus.products"
+  },
+  {
+    $match: {
+      "menus.products.productType": "DRINK"
+    }
+  },
+  {
+    $group: {
+      _id: "$menus.products.productType",
+      produtos: {
+        $push: "$menus.products"
+      }
+    }
+  }
+]
+)

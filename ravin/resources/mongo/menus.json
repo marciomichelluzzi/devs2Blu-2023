@@ -1,0 +1,175 @@
+[{
+        "code": "MENU1",
+        "name": "Cardápio Verão",
+        "description": "Descrição do cardápio verão",
+        "products": [{
+                "code": "PRODUCT1",
+                "name": "Pepsi",
+                "price": 123.13,
+                "preparationTime": "",
+                "productType": "DRINK",
+                "comments": "Descrição",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT2",
+                "name": "Água Mineral",
+                "price": 2.50,
+                "preparationTime": "",
+                "productType": "DRINK",
+                "comments": "Água purificada e refrescante",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT3",
+                "name": "Camarão Grelhado",
+                "price": 25.99,
+                "preparationTime": "20 minutos",
+                "productType": "FOOD",
+                "comments": "Camarões suculentos grelhados com temperos",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT4",
+                "name": "Salada de Frutas",
+                "price": 8.75,
+                "preparationTime": "10 minutos",
+                "productType": "DESSERT",
+                "comments": "Uma mistura fresca e colorida de frutas",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT5",
+                "name": "Cerveja Artesanal",
+                "price": 9.50,
+                "preparationTime": "",
+                "productType": "DRINK",
+                "comments": "Uma cerveja artesanal de sabor único",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT6",
+                "name": "Salmão Grelhado",
+                "price": 22.75,
+                "preparationTime": "18 minutos",
+                "productType": "FOOD",
+                "comments": "Salmão fresco grelhado com molho especial",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT7",
+                "name": "Sorvete de Morango",
+                "price": 6.75,
+                "preparationTime": "5 minutos",
+                "productType": "DESSERT",
+                "comments": "Um sorvete cremoso com sabor de morango",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT8",
+                "name": "Bife T-Bone",
+                "price": 28.99,
+                "preparationTime": "25 minutos",
+                "productType": "FOOD",
+                "comments": "Um suculento bife T-Bone grelhado",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT9",
+                "name": "Coquetel de Frutas",
+                "price": 7.50,
+                "preparationTime": "5 minutos",
+                "productType": "DRINK",
+                "comments": "Um coquetel refrescante de frutas tropicais",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT10",
+                "name": "Batata Doce Frita",
+                "price": 4.50,
+                "preparationTime": "8 minutos",
+                "productType": "SIDE",
+                "comments": "Batatas doces fritas crocantes",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT11",
+                "name": "Sobremesa do Chef",
+                "price": 9.99,
+                "preparationTime": "12 minutos",
+                "productType": "DESSERT",
+                "comments": "Uma criação exclusiva do chef",
+                "hasActive": true
+            }
+        ]
+
+    }, {
+        "code": "MENU2",
+        "name": "Menu Novo",
+        "description": "Descrição do novo menu",
+        "products": [{
+                "code": "PRODUCT2",
+                "name": "Hambúrguer Deluxe",
+                "price": 15.99,
+                "preparationTime": "15 minutos",
+                "productType": "FOOD",
+                "comments": "Um hambúrguer suculento com ingredientes frescos",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT3",
+                "name": "Salada Refrescante",
+                "price": 10.50,
+                "preparationTime": "10 minutos",
+                "productType": "FOOD",
+                "comments": "Uma mistura saudável de vegetais e molhos",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT4",
+                "name": "Sorvete de Chocolate",
+                "price": 6.75,
+                "preparationTime": "5 minutos",
+                "productType": "DESSERT",
+                "comments": "Um delicioso sorvete de chocolate",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT5",
+                "name": "Café Espresso",
+                "price": 3.25,
+                "preparationTime": "2 minutos",
+                "productType": "DRINK",
+                "comments": "Um café forte e encorpado",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT6",
+                "name": "Pizza Margherita",
+                "price": 12.99,
+                "preparationTime": "20 minutos",
+                "productType": "FOOD",
+                "comments": "Uma clássica pizza italiana com tomate, mozarela e manjericão",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT7",
+                "name": "Suco de Laranja Natural",
+                "price": 5.50,
+                "preparationTime": "5 minutos",
+                "productType": "DRINK",
+                "comments": "Suco fresco e delicioso de laranjas",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT8",
+                "name": "Frango Grelhado",
+                "price": 11.75,
+                "preparationTime": "15 minutos",
+                "productType": "FOOD",
+                "comments": "Peito de frango grelhado com temperos especiais",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT9",
+                "name": "Batata Frita Crocante",
+                "price": 4.75,
+                "preparationTime": "8 minutos",
+                "productType": "SIDE",
+                "comments": "Batatas fritas douradas e crocantes",
+                "hasActive": true
+            }, {
+                "code": "PRODUCT10",
+                "name": "Mousse de Maracujá",
+                "price": 7.25,
+                "preparationTime": "10 minutos",
+                "productType": "DESSERT",
+                "comments": "Uma mousse leve e refrescante com sabor de maracujá",
+                "hasActive": true
+            }
+        ]
+    }
+]
